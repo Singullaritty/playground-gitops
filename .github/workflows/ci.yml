@@ -47,6 +47,7 @@ jobs:
 
   deploy-to-k8s:
     name: update manifest & deploy to k8s
+    needs: build-and-push-docker-image
     runs-on:
     - self-hosted
     - Linux
@@ -59,5 +60,6 @@ jobs:
           set -ex
           wget https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
           chmod +x ./kubectl
-          sed -i "s#to_be_replaced#${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" deployment.yaml
+          sed -i "s#to_be_replaced_image#${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" deployment.yaml
+          sed -i "s#to_be_replaced_ns#${{ env.K8S_NAMESPACE }}" deployment.yaml
           ./kubectl apply -f deployment.yaml

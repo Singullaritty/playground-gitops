@@ -4,11 +4,12 @@ metadata:
   labels:
     app: app-gitops
   name: playground-gitops
+  namespace: to_be_replaced_ns
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: gitops
+      app: app-gitops
   strategy: {}
   template:
     metadata:
@@ -20,7 +21,7 @@ spec:
         emptyDir: {}
       serviceAccountName: default
       containers:
-      - image: to_be_replaced
+      - image: to_be_replaced_image
         name: gitops-container
         volumeMounts:
         - mountPath: /tmp
