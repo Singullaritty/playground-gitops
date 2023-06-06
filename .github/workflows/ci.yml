@@ -6,6 +6,10 @@ on:
     - main
     paths:
       - "docker-app/**"
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Sup m8"
 
 env:
   DOCKER_APP_NAME: playground-gitops
