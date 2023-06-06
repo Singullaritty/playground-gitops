@@ -54,7 +54,7 @@ jobs:
     - k8s-runner
     steps:
       - name: Testing k8s api from runners
-        working-directory: ./k8s-deployment
+        working-directory: k8s-deployment
         run: |
           echo "set -ex"
           echo "cd $HOME"
