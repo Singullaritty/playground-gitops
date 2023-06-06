@@ -62,4 +62,5 @@ jobs:
           echo "chmod +x ./kubectl"
           echo "./kubectl auth can-i get pods"
           pwd
-          ls -l
+          ls
+          cd .. && ls
