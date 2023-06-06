@@ -5,8 +5,8 @@ on:
     branches: 
     - main
     paths:
-      - "docker-app/**"
-      - ".github/workflows/**"
+      - "/docker-app/**"
+      - "/.github/workflows/**"
 
 jobs:
   build-and-push-docker-image:
