@@ -2,18 +2,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: playground-app
-  name: playground
+    app: app-gitops
+  name: playground-gitops
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: playground-app
+      app: gitops
   strategy: {}
   template:
     metadata:
       labels:
-        app: playground-app
+        app: app-gitops
     spec:
       volumes:
       - name: app-vol
@@ -21,7 +21,7 @@ spec:
       serviceAccountName: default
       containers:
       - image: to_be_replaced
-        name: app-container
+        name: gitops-container
         volumeMounts:
         - mountPath: /tmp
           name: app-vol
@@ -34,13 +34,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: playground-svc
-  name: playground-svc
+    app: app-gitops-svc
+  name: playground-gitops-svc
 spec:
   ports:
-  - port: 8080
+  - port: 3000
     protocol: TCP
-    targetPort: 8080
+    targetPort: 3000
   selector:
-    app: playground-app
+    app: app-gitops
   type: NodePort
