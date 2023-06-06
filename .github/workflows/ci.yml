@@ -61,6 +61,5 @@ jobs:
           echo "wget https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
           echo "chmod +x ./kubectl"
           echo "./kubectl auth can-i get pods"
+          pwd
           ls -l
-          sed -i "s#to_be_replaced#$${{ env.IMAGE_NAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" deployment.yaml
-          cat "deployment.yaml"
