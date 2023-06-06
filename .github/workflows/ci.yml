@@ -14,7 +14,10 @@ env:
 jobs:
   build-and-push-docker-image:
     name: Build Docker image and push to dockerhub repo
-    runs-on: ubuntu-latest
+    runs-on: 
+    # - ubuntu-latest
+    - self-hosted
+    - k8s-api
 
     steps:
       # - name: Checkout code
