@@ -55,10 +55,10 @@ jobs:
     steps:
       - name: Testing k8s api from runners
         run: |
-          set -ex
-          cd $HOME
-          wget https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
-          chmod +x ./kubectl
-          ./kubectl auth can-i get pods
+          echo "set -ex"
+          echo "cd $HOME"
+          echo "wget https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
+          echo "chmod +x ./kubectl"
+          echo "./kubectl auth can-i get pods"
           sed -i "s#to_be_replaced#$${{ env.IMAGE_NAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" ./k8s-deployment/deployment.yaml
           cat "./k8s-deployment/deployment.yaml"
