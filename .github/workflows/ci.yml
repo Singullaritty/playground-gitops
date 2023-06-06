@@ -11,6 +11,7 @@ on:
 
 env:
   DOCKER_APP_NAME: playground-gitops
+  IMAGE_NAME: lbohdan93/playground-app
   K8S_NAMESPACE: gitops-play
 
 jobs:
@@ -42,7 +43,7 @@ jobs:
     #       context: ./docker-app
     #       file: ./docker-app/Dockerfile
     #       push: true
-    #       tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}
+    #       tags: ${{ env.DOCKER_APP_NAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}
 
 
   deploy-to-k8s:
@@ -59,4 +60,5 @@ jobs:
           wget https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           ./kubectl auth can-i get pods
-          echo "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}"
+          sed -i "s#to_be_replaced#$${{ env.IMAGE_NAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" ${{ github.workspace }}/k8s-deployment/deployment.yaml
+          cat "${{ github.workspace }}/k8s-deployment/deployment.yaml"
