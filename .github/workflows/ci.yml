@@ -10,8 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKER_APP_NAME: playground-gitops
-  IMAGE_NAME: lbohdan93/playground-app
+  DOCKER_APP_NAME: lbohdan93/playground-app
   K8S_NAMESPACE: gitops-play
 
 jobs:
@@ -43,7 +42,7 @@ jobs:
     #       context: ./docker-app
     #       file: ./docker-app/Dockerfile
     #       push: true
-    #       tags: ${{ env.DOCKER_APP_NAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}
+    #       tags: ${{ env.DOCKER_APP_NAME }}:${{ github.sha }}
 
 
   deploy-to-k8s:
@@ -62,5 +61,5 @@ jobs:
           echo "wget https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
           echo "chmod +x ./kubectl"
           echo "./kubectl auth can-i get pods"
-          sed -i "s#to_be_replaced#$${{ env.IMAGE_NAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" deployment.yaml
+          sed -i "s#to_be_replaced#${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" deployment.yaml
           cat "deployment.yaml"
