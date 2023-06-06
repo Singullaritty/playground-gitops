@@ -36,5 +36,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          working-directory: docker-app/
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_APP_NAME }}:latest
