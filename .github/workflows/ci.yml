@@ -14,13 +14,13 @@ env:
   K8S_NAMESPACE: gitops-play
 
 jobs:
-  build-and-push-docker-image:
-    name: Build Docker image and push to dockerhub repo
-    runs-on: 
-    # - ubuntu-latest
-    - self-hosted
-    - Linux
-    - k8s-runner
+  # build-and-push-docker-image:
+  #   name: Build Docker image and push to dockerhub repo
+  #   runs-on: 
+  #   # - ubuntu-latest
+  #   - self-hosted
+  #   - Linux
+  #   - k8s-runner
 
     # steps:
     #   - name: Checkout code
