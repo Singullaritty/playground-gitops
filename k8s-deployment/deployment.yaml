@@ -16,20 +16,10 @@ spec:
       labels:
         app: app-gitops
     spec:
-      volumes:
-      - name: app-vol
-        emptyDir: {}
-      serviceAccountName: default
       containers:
       - image: to_be_replaced_image
         name: gitops-container
-        volumeMounts:
-        - mountPath: /var/cache/nginx
-          name: app-vol
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 101
-          readOnlyRootFilesystem: true
+
 ---
 apiVersion: v1
 kind: Service
