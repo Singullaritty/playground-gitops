@@ -2,10 +2,14 @@
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
- name: k8s-action-runner
+ name: github-runner-api
  namespace: actions-runner-system
 spec:
  replicas: 2
  template:
    spec:
+     labels:
+     - k8s-runner
+     serviceAccountName: github-runner-api-sa
+     automountServiceAccountToken: true
      repository: Singullaritty/playground-gitops 

@@ -17,7 +17,8 @@ jobs:
     runs-on: 
     # - ubuntu-latest
     - self-hosted
-    - linux
+    - Linux
+    - k8s-runner
 
     steps:
       # - name: Checkout code
