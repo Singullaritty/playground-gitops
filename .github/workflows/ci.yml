@@ -57,7 +57,7 @@ jobs:
         # working-directory: k8s-deployment
         run: |
           echo "set -ex"
-          echo "cd $HOME"
+          cd $HOME
           echo "wget https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl"
           echo "chmod +x ./kubectl"
           echo "./kubectl auth can-i get pods"
