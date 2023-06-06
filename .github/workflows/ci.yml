@@ -17,7 +17,7 @@ jobs:
     runs-on: 
     # - ubuntu-latest
     - self-hosted
-    - k8s-api
+    - linux
 
     steps:
       # - name: Checkout code
