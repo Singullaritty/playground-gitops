@@ -36,7 +36,6 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: docker-app/
-          file: ./Dockerfile
+          dockerfile: ./docker-app//Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}
