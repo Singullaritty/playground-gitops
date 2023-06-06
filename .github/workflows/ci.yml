@@ -64,7 +64,7 @@ jobs:
         working-directory: k8s-deployment
         run: |
           set -ex
-          wget https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
+          wget --quiet https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           sed -i "s#to_be_replaced_image#${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" deployment.yaml
           sed -i "s#to_be_replaced_ns#${{ env.K8S_NAMESPACE }}#g" deployment.yaml
