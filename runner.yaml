@@ -1,4 +1,3 @@
-# just for test
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
