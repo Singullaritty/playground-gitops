@@ -2,7 +2,10 @@ name: Build & Push
 
 on:
   push:
-    branches: [main]
+    branches: 
+    - main
+    paths:
+      - "docker-app/**"
 
 jobs:
   build-and-push-docker-image:
