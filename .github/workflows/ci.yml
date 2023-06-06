@@ -6,10 +6,12 @@ on:
     - main
     paths:
       - "docker-app/**"
+      - "k8s-deployment/**"
   workflow_dispatch:
 
 env:
   DOCKER_APP_NAME: playground-gitops
+  K8S_NAMESPACE: gitops-play
 
 jobs:
   build-and-push-docker-image:
@@ -20,28 +22,36 @@ jobs:
     - Linux
     - k8s-runner
 
+    # steps:
+    #   - name: Checkout code
+    #     uses: actions/checkout@v3
+
+    #   - name: Set up Docker Buildx
+    #     id: buildx
+    #     uses: docker/setup-buildx-action@v2
+
+    #   - name: Login to DockerHub
+    #     uses: docker/login-action@v2
+    #     with:
+    #       username: ${{ secrets.DOCKERHUB_USERNAME }}
+    #       password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    #   - name: Build and push
+    #     uses: docker/build-push-action@v4
+    #     with:
+    #       context: ./docker-app
+    #       file: ./docker-app/Dockerfile
+    #       push: true
+    #       tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}
+
+
+  deploy-to-k8s:
+    name: update manifest & deploy to k8s
+    runs-on:
+    - self-hosted
+    - Linux
+    - k8s-runner
     steps:
-      # - name: Checkout code
-      #   uses: actions/checkout@v3
-
-      # - name: Set up Docker Buildx
-      #   id: buildx
-      #   uses: docker/setup-buildx-action@v2
-
-      # - name: Login to DockerHub
-      #   uses: docker/login-action@v2
-      #   with:
-      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # - name: Build and push
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: ./docker-app
-      #     file: ./docker-app/Dockerfile
-      #     push: true
-      #     tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}
-
       - name: Testing k8s api from runners
         run: |
           set -ex
@@ -49,4 +59,4 @@ jobs:
           wget https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
           chmod +x ./kubectl
           ./kubectl auth can-i get pods
-          ./kubectl get pods -A
+          echo "${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_APP_NAME }}:${{ github.sha }}"
