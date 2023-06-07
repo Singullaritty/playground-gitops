@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   labels:
     app: app-gitops
-    test: XD
   name: playground-gitops
   namespace: gitops-play
 spec:
@@ -11,13 +10,11 @@ spec:
   selector:
     matchLabels:
       app: app-gitops
-      test: XD
   strategy: {}
   template:
     metadata:
       labels:
         app: app-gitops
-        test: XD
     spec:
       containers:
       - image: lbohdan93/playground-gitops:7179b1ac1cb8580eace7f51587b14f02c4b0ed3b
@@ -29,7 +26,6 @@ kind: Service
 metadata:
   labels:
     app: app-gitops-svc
-    test: XD
   name: playground-gitops-svc
   namespace: gitops-play
 spec:
@@ -39,5 +35,4 @@ spec:
     targetPort: 3000
   selector:
     app: app-gitops
-    test: XD
   type: NodePort
