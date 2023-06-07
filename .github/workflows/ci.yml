@@ -60,6 +60,9 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+        fetch-depth: 0
 
     - name: update manifest
       working-directory: k8s-deployment
@@ -78,7 +81,7 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.PUSH_TOKEN }}
         force: true
 
   # deploy-to-k8s:
