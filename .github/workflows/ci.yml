@@ -68,7 +68,7 @@ jobs:
       working-directory: k8s-deployment
       run: |
         sed -i 's#image: .*$#image: ${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g' deployment.yaml
-        sed -i 's#namespace: .*$#namespace: {{ env.K8S_NAMESPACE }}#g' deployment.yaml
+        sed -i 's#namespace: .*$#namespace: ${{ env.K8S_NAMESPACE }}#g' deployment.yaml
 
     - name: Commit manifest
       working-directory: k8s-deployment
