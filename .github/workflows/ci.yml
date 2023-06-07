@@ -9,7 +9,7 @@ on:
       - "k8s-deployment/**"
   workflow_dispatch:
 
-env:
+env: 
   DOCKER_APP_NAME: lbohdan93/playground-gitops
   K8S_NAMESPACE: gitops-play
 
@@ -17,7 +17,6 @@ jobs:
   build-and-push-docker-image:
     name: Build Docker image and push to dockerhub repo
     runs-on: 
-    # - ubuntu-latest
     - self-hosted
     - Linux
     - k8s-runner
@@ -70,14 +69,14 @@ jobs:
 
     - name: Commit manifest
       run: |
-        git config --local user.name "${{ RUNNER_NAME }}"
+        git config --local user.name "lbohdan"
         git add deployment.yaml
         git commit -m "Updating k8s deployment manifest"
 
-    - name: Push changes # push the output folder to your repo
+    - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.PUSH_TOKEN }}
         force: true
 
   # deploy-to-k8s:
