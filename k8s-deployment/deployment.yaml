@@ -17,7 +17,7 @@ spec:
         app: app-gitops
     spec:
       containers:
-      - image: lbohdan93/playground-gitops:93d7b58640842671901cf60ac1461b0911989eef
+      - image: lbohdan93/playground-gitops:e8f093c31fa868e095f05bd322e6d12f065b9859
         name: gitops-container
 
 ---
