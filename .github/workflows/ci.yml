@@ -71,7 +71,7 @@ jobs:
     - name: Commit manifest
       run: |
         git config --local user.name "${{ RUNNER_NAME }}"
-        git deployment.yaml
+        git add deployment.yaml
         git commit -m "Updating k8s deployment manifest"
 
     - name: Push changes # push the output folder to your repo
