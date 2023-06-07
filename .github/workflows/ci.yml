@@ -70,7 +70,8 @@ jobs:
     - name: Commit manifest
       working-directory: k8s-deployment
       run: |
-        git config --local user.name "lbohdan"
+        git config --global user.name "lbohdan"
+        git config --global user.name "lbohdan@example.com"
         git add deployment.yaml
         git commit -m "Updating k8s deployment manifest"
 
