@@ -68,6 +68,18 @@ jobs:
         sed -i 's#image: .*$#image: ${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g' deployment.yaml
         sed -i 's#namespace: .*$#namespace: {{ env.K8S_NAMESPACE }}#g' deployment.yaml
 
+    - name: Commit manifest
+      run: |
+        git config --local user.name "${{ RUNNER_NAME }}"
+        git deployment.yaml
+        git commit -m "Updating k8s deployment manifest"
+
+    - name: Push changes # push the output folder to your repo
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        force: true
+
   # deploy-to-k8s:
   #   name: update manifest & deploy to k8s
   #   needs: build-and-push-docker-image
