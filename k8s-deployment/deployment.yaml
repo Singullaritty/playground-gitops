@@ -20,7 +20,7 @@ spec:
         test: XD
     spec:
       containers:
-      - image: lbohdan93/playground-gitops:00767b2065b9393a44bbf659696e87cb55783fd3
+      - image: lbohdan93/playground-gitops:5c8e8d6e620c7e75fb578a6f17b439135871ba65
         name: gitops-container
 
 ---
