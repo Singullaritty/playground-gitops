@@ -52,6 +52,7 @@ jobs:
 
   update-k8s-manifest:
     name: update manifest
+    needs: build-and-push-docker-image
     runs-on:
     - self-hosted
     - Linux
