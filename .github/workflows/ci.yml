@@ -65,8 +65,8 @@ jobs:
     - name: update manifest
       working-directory: k8s-deployment
       run: |
-        sed -e 's#image: .*$#image: ${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g' deployment.yaml
-        sed -e 's#namespace: .*$#namespace: {{ env.K8S_NAMESPACE }}#g' deployment.yaml
+        sed -i 's#image: .*$#image: ${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g' deployment.yaml
+        sed -i 's#namespace: .*$#namespace: {{ env.K8S_NAMESPACE }}#g' deployment.yaml
 
   # deploy-to-k8s:
   #   name: update manifest & deploy to k8s
