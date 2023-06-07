@@ -4,7 +4,7 @@ metadata:
   labels:
     app: app-gitops
   name: playground-gitops
-  namespace: {{ env.K8S_NAMESPACE }}
+  namespace: gitops-play
 spec:
   replicas: 2
   selector:
@@ -17,7 +17,7 @@ spec:
         app: app-gitops
     spec:
       containers:
-      - image: lbohdan93/playground-gitops:e8f093c31fa868e095f05bd322e6d12f065b9859
+      - image: lbohdan93/playground-gitops:b651e3e7b33b0ba7492fa059e426b81c6267df99
         name: gitops-container
 
 ---
@@ -27,7 +27,7 @@ metadata:
   labels:
     app: app-gitops-svc
   name: playground-gitops-svc
-  namespace: {{ env.K8S_NAMESPACE }}
+  namespace: gitops-play
 spec:
   ports:
   - port: 3000
