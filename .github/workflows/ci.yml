@@ -6,7 +6,6 @@ on:
     - main
     paths:
       - "docker-app/**"
-      - "k8s-deployment/**"
   workflow_dispatch:
 
 env: 
