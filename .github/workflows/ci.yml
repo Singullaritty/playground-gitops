@@ -50,22 +50,39 @@ jobs:
           push: true
           tags: ${{ env.DOCKER_APP_NAME }}:${{ github.sha }}
 
-
-  deploy-to-k8s:
-    name: update manifest & deploy to k8s
-    needs: build-and-push-docker-image
+  update-k8s-manifest:
+    name: update manifest
     runs-on:
     - self-hosted
     - Linux
     - k8s-runner
+
     steps:
-      - uses: actions/checkout@v3
-      - name: Testing k8s api from runners
-        working-directory: k8s-deployment
-        run: |
-          set -ex
-          wget --quiet https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
-          chmod +x ./kubectl
-          sed -i "s#to_be_replaced_image#${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" deployment.yaml
-          sed -i "s#to_be_replaced_ns#${{ env.K8S_NAMESPACE }}#g" deployment.yaml
-          ./kubectl apply -f deployment.yaml
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: update manifest
+      working-directory: k8s-deployment
+      run: |
+        sed -e 's#image: .*$#image: ${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g' deployment.yaml
+        sed -e 's#namespace: .*$#namespace: {{ env.K8S_NAMESPACE }}#g' deployment.yaml
+
+  # deploy-to-k8s:
+  #   name: update manifest & deploy to k8s
+  #   needs: build-and-push-docker-image
+  #   runs-on:
+  #   - self-hosted
+  #   - Linux
+  #   - k8s-runner
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Testing k8s api from runners
+  #       working-directory: k8s-deployment
+  #       run: |
+  #         set -ex
+  #         wget --quiet https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
+  #         chmod +x ./kubectl
+  #         sed -i "s#to_be_replaced_image#${{ env.DOCKER_APP_NAME }}:${{ github.sha }}#g" deployment.yaml
+  #         sed -i "s#to_be_replaced_ns#${{ env.K8S_NAMESPACE }}#g" deployment.yaml
+  #         ./kubectl apply -f deployment.yaml
+
